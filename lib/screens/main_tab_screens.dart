@@ -1,16 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:equinox/equinox.dart' as eva;
+import './home_tab_screen.dart';
 
-class MainTabScreens extends StatelessWidget {
+class MainTabScreens extends StatefulWidget {
+  @override
+  _MainTabScreensState createState() => _MainTabScreensState();
+}
+
+class _MainTabScreensState extends State<MainTabScreens> {
+  var _position = 0;
+  List<Widget> _tabList = [ HomeTabScreen(), HomeTabScreen(), HomeTabScreen(), HomeTabScreen(), HomeTabScreen() ];
+
+  // Set tab position
+  void _setPositionTab(index){
+    setState(() {
+      _position = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return eva.EqLayout(
       child: Center(
-        child: Text('This is main page.'),
+        child: _tabList[ _position ],
       ),
       bottomTabBar: eva.EqTabBar(
-        defaultSelected: 0,
-        onSelect: (v){},
+
+        defaultSelected: _position,
+        onSelect: _setPositionTab,
         tabs: [
           eva.EqTabData.fromIcon(title: 'Home', icon: eva.EvaIcons.homeOutline),
           eva.EqTabData.fromIcon(title: 'Explore', icon: eva.EvaIcons.compassOutline),
